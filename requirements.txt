@@ -12,7 +12,6 @@ click==8.1.7
 dataclasses-json==0.6.2
 dill==0.3.7
 dm-tree==0.1.8
-fastapi==0.104.1
 filelock==3.9.0
 flatbuffers==23.5.26
 frozenlist==1.4.0
