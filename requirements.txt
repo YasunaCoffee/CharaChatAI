@@ -29,7 +29,7 @@ grpcio==1.59.0
 h11==0.14.0
 h5py
 httpcore
-httpx==0.25.1
+httpx
 huggingface-hub==0.17.3
 idna==3.4
 importlib-metadata==6.8.0
