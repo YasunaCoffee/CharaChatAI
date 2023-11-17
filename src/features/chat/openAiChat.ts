@@ -38,11 +38,11 @@ export async function getChatResponseStream(
     "Content-Type": "application/json",
     Authorization: `Bearer ${apiKey}`,
   };
-  const res = await fetch("https://api.openai.com/v1/chat/completions", {
+  const res = await fetch("http://127.0.0.1:8000/v1/chat/completions", {
     headers: headers,
     method: "POST",
     body: JSON.stringify({
-      model: "gpt-3.5-turbo",
+      model: "youri-7b-chat",
       messages: messages,
       stream: true,
       max_tokens: 200,
