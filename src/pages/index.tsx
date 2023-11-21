@@ -196,12 +196,12 @@ export default function Home() {
          redirect_uri: "http://localhost:3000"
        }}>
       <Meta />
-      <Introduction
+      {/* <Introduction
         openAiKey={openAiKey}
         koeiroMapKey={koeiromapKey}
         onChangeAiKey={setOpenAiKey}
         onChangeKoeiromapKey={setKoeiromapKey}
-      />
+      /> */}
       <VrmViewer />
       <MessageInputContainer
         isChatProcessing={chatProcessing}
