@@ -189,12 +189,12 @@ export default function Home() {
   // レンダリング部分
  return(
     <div className={"font-M_PLUS_2"}>
-      <Auth0Provider
+      {/* <Auth0Provider
        domain="yasuna.jp.auth0.com"
         clientId="Als0tD4QHZmYMfgaLgKCWovgtlMUOuUE"
        authorizationParams={{
          redirect_uri: "http://localhost:3000"
-       }}>
+       }}> */}
       <Meta />
       {/* <Introduction
         openAiKey={openAiKey}
@@ -222,7 +222,7 @@ export default function Home() {
         handleClickResetSystemPrompt={() => setSystemPrompt(SYSTEM_PROMPT)}
         onChangeKoeiromapKey={setKoeiromapKey}
       />
-      </Auth0Provider>
+      {/* </Auth0Provider> */}
     </div>
   );
 }

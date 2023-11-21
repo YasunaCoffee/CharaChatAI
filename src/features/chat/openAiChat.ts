@@ -2,7 +2,7 @@ import { Configuration, OpenAIApi } from "openai";
 import { Message } from "../messages/messages";
 
 // OpenAIのAPIを使用してチャット応答を取得する関数
-export async function getChatResponse(messages: Message[], apiKey: string | undefined = process.env.OpenAiKey) {
+export async function getChatResponse(messages: Message[], apiKey: string | undefined = process.env.NEXT_PUBLIC_OpenAiKey) {
   if (!apiKey) {
     throw new Error("Invalid API Key");
   }
@@ -33,7 +33,7 @@ export async function getChatResponse(messages: Message[], apiKey: string | unde
 // OpenAIのAPIを使用してストリーム形式でチャット応答を取得する関数
 export async function getChatResponseStream(
   messages: Message[],
-  apiKey: string = process.env.OpenAiKey || 'default_key'
+  apiKey: string = process.env.NEXT_PUBLIC_OpenAiKey || 'default_key'
 ) {
   if (!apiKey) {
     throw new Error("Invalid API Key");
