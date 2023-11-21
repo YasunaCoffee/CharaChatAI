@@ -45,7 +45,7 @@ export async function koeiromapFreeV1(
     output_format: "mp3",
   };
 
-  const KoeiroApiKey = process.env.NEXT_PUBLIC_KoeiroMapKey;
+  const KoeiroApiKey = process.env.NEXT_PUBLIC_VERCEL_ENV_KoeiroMapKey;
 
   if (!KoeiroApiKey) {
     throw new Error("NEXT_PUBLIC_KoeiroMapKey is not defined in the environment variables.");

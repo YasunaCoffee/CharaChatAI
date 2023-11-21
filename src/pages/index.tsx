@@ -25,8 +25,8 @@ export default function Home() {
 
   // 各種状態の初期化
   const [systemPrompt, setSystemPrompt] = useState(SYSTEM_PROMPT);
-  const [openAiKey, setOpenAiKey] = useState("");
-  const [koeiromapKey, setKoeiromapKey] = useState("");
+  const [openAiKey, setOpenAiKey] = useState(process.env.NEXT_PUBLIC_VERCEL_ENV_OpenAiKey || "");
+  const [koeiromapKey, setKoeiromapKey] = useState(process.env.NEXT_PUBLIC_VERCEL_ENV_KoeiroMapKey || "");
   const [koeiroParam, setKoeiroParam] = useState<KoeiroParam>(DEFAULT_PARAM);
   const [chatProcessing, setChatProcessing] = useState(false);
   const [chatLog, setChatLog] = useState<Message[]>([]);
@@ -222,5 +222,7 @@ export default function Home() {
     </div>
   );
 }
+
+
 
 

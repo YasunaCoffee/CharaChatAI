@@ -1,11 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  assetPrefix: process.env.NEXT_PUBLIC_VERCEL_ENV || "",
-  basePath: process.env.NEXT_PUBLIC_VERCEL_ENV || "",
+  assetPrefix: process.env.BASE_PATH || "",
+  basePath: process.env.BASE_PATH || "",
   trailingSlash: true,
   publicRuntimeConfig: {
-    root: process.env.NEXT_PUBLIC_VERCEL_ENV || "",
+    root: process.env.BASE_PATH || "",
   },
   optimizeFonts: false,
 };
