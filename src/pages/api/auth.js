@@ -4,7 +4,7 @@ export default function handler(req, res) {
   try {
     const credentials = basicAuth(req);
 
-    if (credentials && credentials.name === process.env.BASIC_AUTH_USERNAME && credentials.pass === process.env.BASIC_AUTH_PASSWORD) {
+    if (credentials && credentials.name === process.env.NEXT_PUBLIC_VERCEL_ENV_BASIC_AUTH_USERNAME && credentials.pass === process.env.NEXT_PUBLIC_VERCEL_ENV_BASIC_AUTH_PASSWORD) {
       res.status(200).json({ status: 'Authenticated' });
     } else {
       res.status(401).end('Access denied');
@@ -14,3 +14,4 @@ export default function handler(req, res) {
     res.status(500).end('Internal server error');
   }
 }
+
