@@ -31,7 +31,20 @@ export default function Home() {
   const [chatProcessing, setChatProcessing] = useState(false);
   const [chatLog, setChatLog] = useState<Message[]>([]);
   const [assistantMessage, setAssistantMessage] = useState("");
-
+  useEffect(() => {
+    // ページがマウントされたときにAPIルートを呼び出す
+    fetch('/api/auth')
+      .then((response) => {
+        if (response.status === 400) {
+          // 認証が失敗した場合、適切なアクションを行います
+          // 例えば、エラーメッセージを表示したり、ログインページにリダイレクトしたりします
+          window.location.href = '/login';
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }, []);
   // ローカルストレージからchatVRMParamsを取得し、状態を更新するuseEffect
   useEffect(() => {
     if (window.localStorage.getItem("chatVRMParams")) {
@@ -190,20 +203,7 @@ export default function Home() {
     };
   }, []);
 
-  useEffect(() => {
-    // ページがマウントされたときにAPIルートを呼び出す
-    fetch('/api/auth')
-      .then((response) => {
-        if (response.status === 401) {
-          // 認証が失敗した場合、適切なアクションを行います
-          // 例えば、エラーメッセージを表示したり、ログインページにリダイレクトしたりします
-          window.location.href = '/login';
-        }
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-  }, []);
+
 
   // レンダリング部分
  return(
