@@ -184,7 +184,11 @@ export default function Home() {
     [systemPrompt, chatLog, handleSpeakAi, openAiKey, koeiroParam]
   );
 
-
+  useEffect(() => {
+    window.onload = function() {
+      window.localStorage.removeItem("chatVRMParams");
+    };
+  }, []);
 
   // レンダリング部分
  return(
@@ -193,7 +197,7 @@ export default function Home() {
        domain="yasuna.jp.auth0.com"
         clientId="Als0tD4QHZmYMfgaLgKCWovgtlMUOuUE"
        authorizationParams={{
-         redirect_uri: process.env.NEXT_PUBLIC_VERCEL_ENV || "http://localhost:3000"
+         redirect_uri: "http://localhost:3000"
        }}> */}
       <Meta />
       {/* <Introduction
@@ -222,9 +226,3 @@ export default function Home() {
     </div>
   );
 }
-
-useEffect(() => {
-  window.onload = function() {
-    window.localStorage.removeItem("chatVRMParams");
-  };
-}, []);
