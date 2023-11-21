@@ -190,6 +190,21 @@ export default function Home() {
     };
   }, []);
 
+  useEffect(() => {
+    // ページがマウントされたときにAPIルートを呼び出す
+    fetch('/api/auth')
+      .then((response) => {
+        if (response.status === 401) {
+          // 認証が失敗した場合、適切なアクションを行います
+          // 例えば、エラーメッセージを表示したり、ログインページにリダイレクトしたりします
+          window.location.href = '/login';
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }, []);
+
   // レンダリング部分
  return(
     <div className={"font-M_PLUS_2"}>
