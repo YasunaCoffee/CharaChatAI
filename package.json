@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "node server.js",
     "build": "next build",
-    "start": "next build && next start",
+    "start": "NODE_ENV=production node server.js",
     "export": "next export",
     "lint": "next lint"
   },
@@ -14,8 +14,10 @@
     "@charcoal-ui/icons": "^2.6.0",
     "@tailwindcss/line-clamp": "^0.4.4",
     "@types/dom-speech-recognition": "^0.0.1",
+    "basic-auth": "^2.0.1",
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
+    "express": "^4.18.2",
     "next": "^13.2.4",
     "node-fetch": "^3.3.1",
     "openai": "^3.2.1",
