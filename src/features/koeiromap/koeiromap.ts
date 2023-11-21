@@ -45,6 +45,18 @@ export async function koeiromapFreeV1(
     output_format: "mp3",
   };
 
+  const KoeiroApiKey = process.env.NEXT_PUBLIC_KoeiroMapKey;
+
+  if (!KoeiroApiKey) {
+    throw new Error("NEXT_PUBLIC_KoeiroMapKey is not defined in the environment variables.");
+  }
+
+  const headers = new Headers({
+    "Content-Type": "application/json",
+    "Cache-Control": "no-cache",
+    "Ocp-Apim-Subscription-Key": KoeiroApiKey,
+  });
+
   const koeiroRes = await fetch(
     "https://api.rinna.co.jp/koeiromap/v1.0/infer",
     {
@@ -53,7 +65,7 @@ export async function koeiromapFreeV1(
       headers: {
         "Content-Type": "application/json",
         "Cache-Control": "no-cache",
-        "Ocp-Apim-Subscription-Key": apiKey,
+        "Ocp-Apim-Subscription-Key": KoeiroApiKey,
       },
     }
   );
@@ -62,3 +74,6 @@ export async function koeiromapFreeV1(
 
   return { audio: data.audio };
 }
+
+
+
