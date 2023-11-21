@@ -193,7 +193,7 @@ export default function Home() {
        domain="yasuna.jp.auth0.com"
         clientId="Als0tD4QHZmYMfgaLgKCWovgtlMUOuUE"
        authorizationParams={{
-         redirect_uri: "http://localhost:3000"
+         redirect_uri: process.env.NEXT_PUBLIC_VERCEL_ENV || "http://localhost:3000"
        }}> */}
       <Meta />
       {/* <Introduction
@@ -223,11 +223,8 @@ export default function Home() {
   );
 }
 
-window.onload = function() {
-  window.localStorage.removeItem("chatVRMParams");
-};
-
-
-
-
-
+useEffect(() => {
+  window.onload = function() {
+    window.localStorage.removeItem("chatVRMParams");
+  };
+}, []);
