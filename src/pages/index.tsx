@@ -16,9 +16,11 @@ import { Menu } from "@/components/menu";
 import { GitHubLink } from "@/components/githubLink";
 import { Meta } from "@/components/meta";
 
+// ViewerContextからviewerを取得し、各種状態を管理するHome関数
 export default function Home() {
   const { viewer } = useContext(ViewerContext);
 
+  // 各種状態の初期化
   const [systemPrompt, setSystemPrompt] = useState(SYSTEM_PROMPT);
   const [openAiKey, setOpenAiKey] = useState("");
   const [koeiromapKey, setKoeiromapKey] = useState("");
@@ -27,6 +29,7 @@ export default function Home() {
   const [chatLog, setChatLog] = useState<Message[]>([]);
   const [assistantMessage, setAssistantMessage] = useState("");
 
+  // ローカルストレージからchatVRMParamsを取得し、状態を更新するuseEffect
   useEffect(() => {
     if (window.localStorage.getItem("chatVRMParams")) {
       const params = JSON.parse(
@@ -47,7 +50,7 @@ export default function Home() {
     );
   }, [systemPrompt, koeiroParam, chatLog]);
 
-  const handleChangeChatLog = useCallback(
+   const handleChangeChatLog = useCallback(
     (targetIndex: number, text: string) => {
       const newChatLog = chatLog.map((v: Message, i) => {
         return i === targetIndex ? { role: v.role, content: text } : v;
@@ -57,10 +60,6 @@ export default function Home() {
     },
     [chatLog]
   );
-
-  /**
-   * 文ごとに音声を直列でリクエストしながら再生する
-   */
   const handleSpeakAi = useCallback(
     async (
       screenplay: Screenplay,
@@ -72,9 +71,7 @@ export default function Home() {
     [viewer, koeiromapKey]
   );
 
-  /**
-   * アシスタントとの会話を行う
-   */
+  // アシスタントとの会話を行うhandleSendChat関数
   const handleSendChat = useCallback(
     async (text: string) => {
       if (!openAiKey) {
@@ -184,6 +181,7 @@ export default function Home() {
     [systemPrompt, chatLog, handleSpeakAi, openAiKey, koeiroParam]
   );
 
+  // レンダリング部分
   return (
     <div className={"font-M_PLUS_2"}>
       <Meta />
@@ -217,3 +215,5 @@ export default function Home() {
     </div>
   );
 }
+
+
