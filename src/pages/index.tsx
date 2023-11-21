@@ -13,8 +13,11 @@ import { KoeiroParam, DEFAULT_PARAM } from "@/features/constants/koeiroParam";
 import { getChatResponseStream } from "@/features/chat/openAiChat";
 import { Introduction } from "@/components/introduction";
 import { Menu } from "@/components/menu";
-import { GitHubLink } from "@/components/githubLink";
 import { Meta } from "@/components/meta";
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import { Auth0Provider } from "@auth0/auth0-react";
+
 
 // ViewerContextからviewerを取得し、各種状態を管理するHome関数
 export default function Home() {
@@ -181,9 +184,17 @@ export default function Home() {
     [systemPrompt, chatLog, handleSpeakAi, openAiKey, koeiroParam]
   );
 
+
+
   // レンダリング部分
-  return (
+ return(
     <div className={"font-M_PLUS_2"}>
+      <Auth0Provider
+       domain="yasuna.jp.auth0.com"
+        clientId="Als0tD4QHZmYMfgaLgKCWovgtlMUOuUE"
+       authorizationParams={{
+         redirect_uri: "http://localhost:3000"
+       }}>
       <Meta />
       <Introduction
         openAiKey={openAiKey}
@@ -211,7 +222,7 @@ export default function Home() {
         handleClickResetSystemPrompt={() => setSystemPrompt(SYSTEM_PROMPT)}
         onChangeKoeiromapKey={setKoeiromapKey}
       />
-      <GitHubLink />
+      </Auth0Provider>
     </div>
   );
 }
