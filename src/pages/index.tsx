@@ -223,6 +223,11 @@ export default function Home() {
   );
 }
 
+window.onload = function() {
+  window.localStorage.removeItem("chatVRMParams");
+};
+
+
 
 
 
