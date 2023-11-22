@@ -1,4 +1,5 @@
 # きゃらチャットAI
+![ai](https://github.com/YasunaCoffee/CharaChatAI/assets/74343879/d5e3698f-1ebc-4809-9e81-cc07a8d07bfb)
 
 きゃらチャットAIは、ピクシブ社の[ChatVRM](https://github.com/pixiv/ChatVRM)をフォークして作成されています。
 ブラウザで簡単にAIキャラクターと会話ができるアプリケーションです。
