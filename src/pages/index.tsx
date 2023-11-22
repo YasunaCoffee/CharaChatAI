@@ -13,20 +13,39 @@ import { KoeiroParam, DEFAULT_PARAM } from "@/features/constants/koeiroParam";
 import { getChatResponseStream } from "@/features/chat/openAiChat";
 import { Introduction } from "@/components/introduction";
 import { Menu } from "@/components/menu";
-import { GitHubLink } from "@/components/githubLink";
 import { Meta } from "@/components/meta";
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import { Auth0Provider } from "@auth0/auth0-react";
 
+
+// ViewerContextからviewerを取得し、各種状態を管理するHome関数
 export default function Home() {
   const { viewer } = useContext(ViewerContext);
 
+  // 各種状態の初期化
   const [systemPrompt, setSystemPrompt] = useState(SYSTEM_PROMPT);
-  const [openAiKey, setOpenAiKey] = useState("");
-  const [koeiromapKey, setKoeiromapKey] = useState("");
+  const [openAiKey, setOpenAiKey] = useState(process.env.NEXT_PUBLIC_VERCEL_ENV_OpenAiKey || "");
+  const [koeiromapKey, setKoeiromapKey] = useState(process.env.NEXT_PUBLIC_VERCEL_ENV_KoeiroMapKey || "");
   const [koeiroParam, setKoeiroParam] = useState<KoeiroParam>(DEFAULT_PARAM);
   const [chatProcessing, setChatProcessing] = useState(false);
   const [chatLog, setChatLog] = useState<Message[]>([]);
   const [assistantMessage, setAssistantMessage] = useState("");
-
+  useEffect(() => {
+    // ページがマウントされたときにAPIルートを呼び出す
+    fetch('/api/auth')
+      .then((response) => {
+        if (response.status === 400) {
+          // 認証が失敗した場合、適切なアクションを行います
+          // 例えば、エラーメッセージを表示したり、ログインページにリダイレクトしたりします
+          window.location.href = '/login';
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }, []);
+  // ローカルストレージからchatVRMParamsを取得し、状態を更新するuseEffect
   useEffect(() => {
     if (window.localStorage.getItem("chatVRMParams")) {
       const params = JSON.parse(
@@ -47,7 +66,7 @@ export default function Home() {
     );
   }, [systemPrompt, koeiroParam, chatLog]);
 
-  const handleChangeChatLog = useCallback(
+   const handleChangeChatLog = useCallback(
     (targetIndex: number, text: string) => {
       const newChatLog = chatLog.map((v: Message, i) => {
         return i === targetIndex ? { role: v.role, content: text } : v;
@@ -57,10 +76,6 @@ export default function Home() {
     },
     [chatLog]
   );
-
-  /**
-   * 文ごとに音声を直列でリクエストしながら再生する
-   */
   const handleSpeakAi = useCallback(
     async (
       screenplay: Screenplay,
@@ -72,9 +87,7 @@ export default function Home() {
     [viewer, koeiromapKey]
   );
 
-  /**
-   * アシスタントとの会話を行う
-   */
+  // アシスタントとの会話を行うhandleSendChat関数
   const handleSendChat = useCallback(
     async (text: string) => {
       if (!openAiKey) {
@@ -184,36 +197,47 @@ export default function Home() {
     [systemPrompt, chatLog, handleSpeakAi, openAiKey, koeiroParam]
   );
 
-  return (
+  useEffect(() => {
+    window.onload = function() {
+      window.localStorage.removeItem("chatVRMParams");
+    };
+  }, []);
+
+
+
+  // レンダリング部分
+ return(
     <div className={"font-M_PLUS_2"}>
+      {/* <Auth0Provider
+       domain="yasuna.jp.auth0.com"
+        clientId="Als0tD4QHZmYMfgaLgKCWovgtlMUOuUE"
+       authorizationParams={{
+         redirect_uri: "http://localhost:3000"
+       }}> */}
       <Meta />
-      <Introduction
+      {/* <Introduction
         openAiKey={openAiKey}
         koeiroMapKey={koeiromapKey}
         onChangeAiKey={setOpenAiKey}
         onChangeKoeiromapKey={setKoeiromapKey}
-      />
+      /> */}
       <VrmViewer />
       <MessageInputContainer
         isChatProcessing={chatProcessing}
         onChatProcessStart={handleSendChat}
       />
       <Menu
-        openAiKey={openAiKey}
         systemPrompt={systemPrompt}
         chatLog={chatLog}
         koeiroParam={koeiroParam}
         assistantMessage={assistantMessage}
-        koeiromapKey={koeiromapKey}
-        onChangeAiKey={setOpenAiKey}
         onChangeSystemPrompt={setSystemPrompt}
         onChangeChatLog={handleChangeChatLog}
         onChangeKoeiromapParam={setKoeiroParam}
         handleClickResetChatLog={() => setChatLog([])}
         handleClickResetSystemPrompt={() => setSystemPrompt(SYSTEM_PROMPT)}
-        onChangeKoeiromapKey={setKoeiromapKey}
-      />
-      <GitHubLink />
+        />
+      {/* </Auth0Provider> */}
     </div>
   );
 }

@@ -10,7 +10,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const apiKey = req.body.apiKey || process.env.OPEN_AI_KEY;
+  const apiKey = req.body.apiKey || process.env.NEXT_PUBLIC_OpenAiKey || 'default_key';
 
   if (!apiKey) {
     res
