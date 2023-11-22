@@ -17,6 +17,7 @@ import { Meta } from "@/components/meta";
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Auth0Provider } from "@auth0/auth0-react";
+import LoginButton from "@/components/LoginButton";
 
 
 // ViewerContextからviewerを取得し、各種状態を管理するHome関数
@@ -207,37 +208,30 @@ export default function Home() {
 
   // レンダリング部分
  return(
-    <div className={"font-M_PLUS_2"}>
-      {/* <Auth0Provider
-       domain="yasuna.jp.auth0.com"
-        clientId="Als0tD4QHZmYMfgaLgKCWovgtlMUOuUE"
-       authorizationParams={{
-         redirect_uri: "http://localhost:3000"
-       }}> */}
-      <Meta />
-      {/* <Introduction
-        openAiKey={openAiKey}
-        koeiroMapKey={koeiromapKey}
-        onChangeAiKey={setOpenAiKey}
-        onChangeKoeiromapKey={setKoeiromapKey}
-      /> */}
-      <VrmViewer />
-      <MessageInputContainer
-        isChatProcessing={chatProcessing}
-        onChatProcessStart={handleSendChat}
-      />
-      <Menu
-        systemPrompt={systemPrompt}
-        chatLog={chatLog}
-        koeiroParam={koeiroParam}
-        assistantMessage={assistantMessage}
-        onChangeSystemPrompt={setSystemPrompt}
-        onChangeChatLog={handleChangeChatLog}
-        onChangeKoeiromapParam={setKoeiroParam}
-        handleClickResetChatLog={() => setChatLog([])}
-        handleClickResetSystemPrompt={() => setSystemPrompt(SYSTEM_PROMPT)}
+    <Auth0Provider
+       domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN || ""}
+       clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID || ""}
+    >
+      <div className={"font-M_PLUS_2"}>
+        <Meta />
+        <LoginButton />
+        <VrmViewer />
+        <MessageInputContainer
+          isChatProcessing={chatProcessing}
+          onChatProcessStart={handleSendChat}
         />
-      {/* </Auth0Provider> */}
-    </div>
+        <Menu
+          systemPrompt={systemPrompt}
+          chatLog={chatLog}
+          koeiroParam={koeiroParam}
+          assistantMessage={assistantMessage}
+          onChangeSystemPrompt={setSystemPrompt}
+          onChangeChatLog={handleChangeChatLog}
+          onChangeKoeiromapParam={setKoeiroParam}
+          handleClickResetChatLog={() => setChatLog([])}
+          handleClickResetSystemPrompt={() => setSystemPrompt(SYSTEM_PROMPT)}
+          />
+      </div>
+    </Auth0Provider>
   );
 }
