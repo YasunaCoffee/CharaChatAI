@@ -1,10 +1,10 @@
 import { buildUrl } from "@/utils/buildUrl";
 import Head from "next/head";
 export const Meta = () => {
-  const title = "ChatVRM";
+  const title = "きゃらチャットAI";
   const description =
-    "Webブラウザだけで3Dキャラクターとの会話を、マイクやテキスト入力、音声合成を用いて楽しめます。キャラクター（VRM）の変更や性格設定、音声調整もできます。";
-  const imageUrl = "https://pixiv.github.io/ChatVRM/ogp.png";
+    "キャラクターとの会話を、マイクやテキスト入力、音声合成を用いて楽しめます。";
+  const imageUrl = "https://github.com/YasunaCoffee/CharaChatAI/blob/main/public/ogp.png?raw=true";
   return (
     <Head>
       <title>{title}</title>
