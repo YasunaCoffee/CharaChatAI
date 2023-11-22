@@ -18,11 +18,20 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Auth0Provider } from "@auth0/auth0-react";
 import LoginButton from "@/components/LoginButton";
-
+import { useAuth0 } from '@auth0/auth0-react';
+import { useRouter } from 'next/router';
 
 // ViewerContextからviewerを取得し、各種状態を管理するHome関数
 export default function Home() {
   const { viewer } = useContext(ViewerContext);
+  const { isAuthenticated, isLoading } = useAuth0();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      router.push('/login');
+    }
+  }, [isLoading, isAuthenticated]);
 
   // 各種状態の初期化
   const [systemPrompt, setSystemPrompt] = useState(SYSTEM_PROMPT);
