@@ -17,7 +17,7 @@ export default function LoginPage() {
       clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID || ""}
       onRedirectCallback={() => {
         if (typeof window !== 'undefined') {
-          window.location.href = "https://chara-chat-ai.vercel.app/"
+          return window.location.origin;
         }
       }}
     >
