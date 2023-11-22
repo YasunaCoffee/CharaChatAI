@@ -1,10 +1,11 @@
-# ChatVRM
+# きゃらチャットAI
 
-ChatVRMはブラウザで簡単に3Dキャラクターと会話ができるデモアプリケーションです。
+きゃらチャットAIは、ピクシブ社の[ChatVRM](https://github.com/pixiv/ChatVRM)をフォークして作成されています。
+ブラウザで簡単にAIキャラクターと会話ができるアプリケーションです。
 
-VRMファイルをインポートしてキャラクターに合わせた声の調整や、感情表現を含んだ返答文の生成などを行うことができます。
+チャット画面からAIキャラクターと会話を楽しむことができます。
 
-ChatVRMの各機能は主に以下の技術を使用しています。
+きゃらチャットAIの各機能は主に以下の技術を使用しています。
 
 - ユーザーの音声の認識
     - [Web Speech API(SpeechRecognition)](https://developer.mozilla.org/ja/docs/Web/API/SpeechRecognition)
@@ -17,16 +18,13 @@ ChatVRMの各機能は主に以下の技術を使用しています。
 
 
 ## デモ
-
-Glitchでデモを公開しています。
-
-[https://chatvrm.glitch.me](https://chatvrm.glitch.me)
+調整中
 
 ## 実行
 ローカル環境で実行する場合はこのリポジトリをクローンするか、ダウンロードしてください。
 
 ```bash
-git clone git@github.com:pixiv/ChatVRM.git
+git clone https://github.com/YasunaCoffee/CharaChatAI.git
 ```
 
 必要なパッケージをインストールしてください。
@@ -43,22 +41,14 @@ npm run dev
 
 [http://localhost:3000](http://localhost:3000) 
 
+# アプリケーションを公開する場合
+Vercelにてデプロイする方法を推奨しています。以下の記事をご参考ください。
+[3DキャラクターのAIチャットアプリをVercelでデプロイしたら一瞬だった](https://zenn.dev/yasuna/articles/8dc292545b7ea3)
 
----
-
-## ChatGPT API
-
-ChatVRMでは返答文の生成にChatGPT APIを使用しています。
-
-ChatGPT APIの仕様や利用規約については以下のリンクや公式サイトをご確認ください。
-
-- [https://platform.openai.com/docs/api-reference/chat](https://platform.openai.com/docs/api-reference/chat)
-- [https://openai.com/policies/api-data-usage-policies](https://openai.com/policies/api-data-usage-policies)
-
-
-## Koeiromap API
-ChatVRMでは返答文の音声読み上げにKoemotionのKoeiromap APIを使用しています。
-
-Koeiromap APIの仕様や利用規約については以下のリンクや公式サイトをご確認ください。
-
-- [https://koemotion.rinna.co.jp/](https://koemotion.rinna.co.jp/)
+# 環境変数の設定
+Vercel上で環境変数を設定しています。
+VercelのSettingで環境変数にOpenAIのAPIKEYとKoeiromapのAPIKEYを設定してください。
+```
+NEXT_PUBLIC_VERCEL_ENV_OpenAiKey
+NEXT_PUBLIC_VERCEL_ENV_KoeiroMapKey
+```
