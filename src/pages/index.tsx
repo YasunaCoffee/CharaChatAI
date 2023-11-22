@@ -208,14 +208,8 @@ export default function Home() {
 
   // レンダリング部分
  return(
-    <Auth0Provider
-       domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN || ""}
-       clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID || ""}
-       onRedirectCallback={() => window.location.origin}
-    >
       <div className={"font-M_PLUS_2"}>
         <Meta />
-        <LoginButton />
         <VrmViewer />
         <MessageInputContainer
           isChatProcessing={chatProcessing}
@@ -233,6 +227,5 @@ export default function Home() {
           handleClickResetSystemPrompt={() => setSystemPrompt(SYSTEM_PROMPT)}
           />
       </div>
-    </Auth0Provider>
   );
 }
