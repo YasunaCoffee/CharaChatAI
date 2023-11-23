@@ -6,7 +6,10 @@ function MyApp({ Component, pageProps }: AppProps) {
     <Auth0Provider
       domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN || ""}
       clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID || ""}
-      onRedirectCallback={() => window.location.origin}
+      onRedirectCallback={() => {
+        // Auth0からリダイレクト後にindex.tsxページを表示する
+        window.location.pathname = '/';
+      }}
     >
       <Component {...pageProps} />
     </Auth0Provider>
@@ -14,4 +17,3 @@ function MyApp({ Component, pageProps }: AppProps) {
 }
 
 export default MyApp;
-
