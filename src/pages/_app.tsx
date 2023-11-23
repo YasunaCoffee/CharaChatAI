@@ -7,7 +7,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN || ""}
       clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID || ""}    
       authorizationParams={{
-        redirect_uri: window.location.origin
+        redirect_uri: typeof window !== "undefined" ? window.location.origin : ""
       }}
     >
       <Component {...pageProps} />
@@ -16,3 +16,4 @@ function MyApp({ Component, pageProps }: AppProps) {
 }
 
 export default MyApp;
+
