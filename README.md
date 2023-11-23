@@ -28,7 +28,7 @@
 git clone https://github.com/YasunaCoffee/CharaChatAI.git
 ```
 
-必要なパッケージをインストールしてください。
+必要なパッケージをインストールしてください
 ```bash
 npm install
 ```
