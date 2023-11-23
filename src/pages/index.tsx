@@ -16,12 +16,12 @@ import { Menu } from "@/components/menu";
 import { Meta } from "@/components/meta";
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { Auth0Provider } from "@auth0/auth0-react";
-
+import { Auth0Provider, useAuth0 } from "@auth0/auth0-react";
 
 // ViewerContextからviewerを取得し、各種状態を管理するHome関数
 export default function Home() {
   const { viewer } = useContext(ViewerContext);
+  const { loginWithRedirect } = useAuth0();
 
   // 各種状態の初期化
   const [systemPrompt, setSystemPrompt] = useState(SYSTEM_PROMPT);
@@ -203,24 +203,16 @@ export default function Home() {
     };
   }, []);
 
-
-
   // レンダリング部分
- return(
-    <div className={"font-M_PLUS_2"}>
-      <Auth0Provider
-       domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN || ""}
-       clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID || ""}
-        authorizationParams={{
-          redirect_uri: typeof window !== "undefined" ? window.location.origin : ""
-        }}>
+  return(
+    <Auth0Provider
+      domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN || ""}
+      clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID || ""}
+      authorizationParams={{
+        redirect_uri: typeof window !== "undefined" ? window.location.origin : ""
+      }}
+    >
       <Meta />
-      {/* <Introduction
-        openAiKey={openAiKey}
-        koeiroMapKey={koeiromapKey}
-        onChangeAiKey={setOpenAiKey}
-        onChangeKoeiromapKey={setKoeiromapKey}
-      /> */}
       <VrmViewer />
       <MessageInputContainer
         isChatProcessing={chatProcessing}
@@ -237,7 +229,6 @@ export default function Home() {
         handleClickResetChatLog={() => setChatLog([])}
         handleClickResetSystemPrompt={() => setSystemPrompt(SYSTEM_PROMPT)}
         />
-      </Auth0Provider>
-    </div>
+    </Auth0Provider>
   );
 }
