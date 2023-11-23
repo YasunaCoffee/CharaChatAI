@@ -208,12 +208,12 @@ export default function Home() {
   // レンダリング部分
  return(
     <div className={"font-M_PLUS_2"}>
-      {/* <Auth0Provider
-       domain="yasuna.jp.auth0.com"
-        clientId="Als0tD4QHZmYMfgaLgKCWovgtlMUOuUE"
-       authorizationParams={{
-         redirect_uri: "http://localhost:3000"
-       }}> */}
+      <Auth0Provider
+       domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN || ""}
+       clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID || ""}
+        authorizationParams={{
+          redirect_uri: typeof window !== "undefined" ? window.location.origin : ""
+        }}>
       <Meta />
       {/* <Introduction
         openAiKey={openAiKey}
@@ -237,7 +237,7 @@ export default function Home() {
         handleClickResetChatLog={() => setChatLog([])}
         handleClickResetSystemPrompt={() => setSystemPrompt(SYSTEM_PROMPT)}
         />
-      {/* </Auth0Provider> */}
+      </Auth0Provider>
     </div>
   );
 }
