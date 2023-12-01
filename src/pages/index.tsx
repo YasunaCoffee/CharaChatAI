@@ -11,14 +11,9 @@ import { MessageInputContainer } from "@/components/messageInputContainer";
 import { SYSTEM_PROMPT } from "@/features/constants/systemPromptConstants";
 import { KoeiroParam, DEFAULT_PARAM } from "@/features/constants/koeiroParam";
 import { getChatResponseStream } from "@/features/chat/openAiChat";
-import { Introduction } from "@/components/introduction";
 import { Menu } from "@/components/menu";
 import { Meta } from "@/components/meta";
 import React from 'react';
-import { createRoot } from 'react-dom/client';
-import { Auth0Provider } from "@auth0/auth0-react";
-
-
 // ViewerContextからviewerを取得し、各種状態を管理するHome関数
 export default function Home() {
   const { viewer } = useContext(ViewerContext);
@@ -31,20 +26,7 @@ export default function Home() {
   const [chatProcessing, setChatProcessing] = useState(false);
   const [chatLog, setChatLog] = useState<Message[]>([]);
   const [assistantMessage, setAssistantMessage] = useState("");
-  useEffect(() => {
-    // ページがマウントされたときにAPIルートを呼び出す
-    fetch('/api/auth')
-      .then((response) => {
-        if (response.status === 400) {
-          // 認証が失敗した場合、適切なアクションを行います
-          // 例えば、エラーメッセージを表示したり、ログインページにリダイレクトしたりします
-          window.location.href = '/login';
-        }
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-  }, []);
+
   // ローカルストレージからchatVRMParamsを取得し、状態を更新するuseEffect
   useEffect(() => {
     if (window.localStorage.getItem("chatVRMParams")) {
@@ -203,24 +185,10 @@ export default function Home() {
     };
   }, []);
 
-
-
   // レンダリング部分
- return(
-    <div className={"font-M_PLUS_2"}>
-      {/* <Auth0Provider
-       domain="yasuna.jp.auth0.com"
-        clientId="Als0tD4QHZmYMfgaLgKCWovgtlMUOuUE"
-       authorizationParams={{
-         redirect_uri: "http://localhost:3000"
-       }}> */}
+  return(
+    <>
       <Meta />
-      {/* <Introduction
-        openAiKey={openAiKey}
-        koeiroMapKey={koeiromapKey}
-        onChangeAiKey={setOpenAiKey}
-        onChangeKoeiromapKey={setKoeiromapKey}
-      /> */}
       <VrmViewer />
       <MessageInputContainer
         isChatProcessing={chatProcessing}
@@ -236,8 +204,7 @@ export default function Home() {
         onChangeKoeiromapParam={setKoeiroParam}
         handleClickResetChatLog={() => setChatLog([])}
         handleClickResetSystemPrompt={() => setSystemPrompt(SYSTEM_PROMPT)}
-        />
-      {/* </Auth0Provider> */}
-    </div>
+      />
+    </>
   );
 }

@@ -33,7 +33,7 @@ git clone https://github.com/YasunaCoffee/CharaChatAI.git
 npm install
 ```
 
-パッケージのインストールが完了した後、以下のコマンドで開発用のWebサーバーを起動します。
+パッケージのインストールが完了した後、以下のコマンドで開発用のWebサーバーを起動します
 ```bash
 npm run dev
 ```
